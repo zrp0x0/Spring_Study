@@ -1,0 +1,40 @@
+spring:
+  application:
+    name: jpa
+
+  datasource:
+    # 1. 데이터베이스 접속 정보
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    # 'my_db_name' 부분에 본인의 데이터베이스 이름(스키마명)을 넣으세요.
+    # ?serverTimezone=Asia/Seoul : 한국 시간 설정 (필수 권장)
+    # &characterEncoding=UTF-8 : 한글 깨짐 방지
+    url: jdbc:mysql://localhost:3306/springboot?serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root # DB 아이디
+    password: 1234 # DB 비밀번호
+
+  jpa:
+    # 2. 하이버네이트 설정 (JPA 구현체)
+    hibernate:
+      # [매우 중요] ddl-auto 옵션
+      # create: 시작할 때 기존 테이블 삭제 후 다시 생성 (데이터 다 날아감, 주의!)
+      # create-drop: create와 같으나 종료 시점에 테이블 삭제 (테스트용)
+      # update: 변경된 스키마만 반영 (데이터 유지, 개발 시 추천)
+      # validate: 엔티티와 테이블이 정상 매핑되었는지만 확인 (운영 서버용)
+      # none: 아무것도 안 함
+      ddl-auto: update
+    
+    # 3. SQL 로그 설정
+    # 실행되는 SQL을 콘솔에 보여줄지 여부
+    show-sql: true
+    
+    properties:
+      hibernate:
+        # SQL을 예쁘게 정렬해서 보여줌 (가독성 UP)
+        format_sql: true
+        
+        # (선택) SQL 파라미터 값을 '?' 대신 실제 값으로 보여줌 (외부 라이브러리 필요할 수 있음)
+        # use_sql_comments: true 
+        
+        # MySQL 버전에 맞는 방언(Dialect) 설정
+        # 명시하지 않아도 자동 감지되지만, 오류 방지를 위해 적어주는 것이 좋음
+        dialect: org.hibernate.dialect.MySQL8Dialect
